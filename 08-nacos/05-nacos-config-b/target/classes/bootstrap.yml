@@ -1,0 +1,21 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: nacos-config-b
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      username: nacos
+      password: nacos
+      config:
+        namespace: ddf9aed7-a76b-4ecb-94ae-793b89d3fa73
+        extension-configs:
+          - group: A_GROUP
+            dataId: config-1.yml
+            refresh: true
+          - group: B_GROUP
+            dataId: config-2.yml
+            refresh: false
+        file-extension: yml
+

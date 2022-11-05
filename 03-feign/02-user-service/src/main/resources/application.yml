@@ -1,0 +1,18 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: user-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+# 配置feign的超时时间
+# 因为feign只是封装了远程调用的过程，底层还是ribbon，所以需要配置ribbon的超时时间
+ribbon:
+  ConnectTimeout: 3000 # 连接的超时时间
+  ReadTimeout: 3000 # 处理请求的超时时间
+# 指定feign的日志级别
+logging:
+  level:
+    com.bjpowernode.userservice.feign.UserOrderFeign: debug

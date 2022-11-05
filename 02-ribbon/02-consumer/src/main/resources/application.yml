@@ -1,0 +1,15 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: consumer
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+# 为每个服务单独设置轮训算法
+provider:  # 服务应用名称
+    ribbon:
+        NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule    #几种算法的全限定类名
+# 可以在容器中注入轮训算法作为全局的轮旋算法

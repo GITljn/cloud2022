@@ -1,0 +1,27 @@
+server:
+  port: 80
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      enabled: true
+      routes:
+        - id: login-service-1
+          uri: lb://login-service
+          predicates:
+            - Path=/login,/message  # Path中P大写
+          filters:
+            - name: RequestRateLimiter  # 过滤器的名称
+              args: # 过滤器的参数
+                key-resolver: '#{@ipKeyResolver}'   # 通过spel表达式取ioc容器中的bean对象
+                redis-rate-limiter.replenishRate: 1  # 生成令牌的速度
+                redis-rate-limiter.burstCapacity: 3  # 桶容量
+      discovery:
+        locator:
+          enabled: true   # 开启动态路由，通过服务名称找到实例及访问的资源
+          lower-case-service-id: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka

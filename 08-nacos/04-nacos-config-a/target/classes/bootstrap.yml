@@ -1,0 +1,15 @@
+server:
+  port: 6060
+spring:
+  application:
+    name: nacos-config-a
+  cloud:
+    nacos:
+      config:
+#        server-addr: localhost:8848
+#        username: nacos
+#        password: nacos
+#        namespace: public  # 不能写public，要写UUID
+        group: DEFAULT_GROUP
+        prefix: config
+        file-extension: yml

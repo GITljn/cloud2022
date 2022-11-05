@@ -1,0 +1,53 @@
+#单机版
+server:
+  port: 8761
+spring:
+  application:
+    name: eureka-server
+eureka: # Eureka的配置包括三种：server、client、实例
+  server:
+    eviction-interval-timer-in-ms: 10000  # 每个10秒检查是否有需要被踢除的实例
+    renewal-percent-threshold: 0.85 # 每次剔除的实例超过85%，则均不剔除，保证高可用
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+    prefer-ip-address: true # 鼠标放到超链接上左下角会在接口信息中显示ip的信息
+    lease-renewal-interval-in-seconds: 5 # 续约的时间间隔
+
+#集群版
+#server:
+#  port: 8761
+#spring:
+#  application:
+#    name: eureka-server
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://eureka2:8762/eureka, http://eureka3:8763/eureka
+#    register-with-eureka: true
+#    fetch-registry: true
+#    registry-fetch-interval-seconds: 10
+#  instance:
+#    hostname: eureka1
+#    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${server.port}
+#    prefer-ip-address: true
+#    lease-renewal-interval-in-seconds: 10
+
+#集群终极方案
+#server:
+#  port: 8761
+#spring:
+#  application:
+#    name: eureka-server
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://eureka1:8761/eureka, http://eureka2:8762/eureka, http://eureka3:8763/eureka
+#    register-with-eureka: true
+#    fetch-registry: true
+#    registry-fetch-interval-seconds: 10
+#  instance:
+##    hostname: eureka1
+#    instance-id: ${spring.application.name}:${server.port}
+#    prefer-ip-address: true
+#    lease-renewal-interval-in-seconds: 10
